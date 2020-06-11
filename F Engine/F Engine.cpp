@@ -1,7 +1,13 @@
 #include <iostream>
+#include <string>
 
-int main()
-{
-    std::cout << "Hello Testing Git!\n";
+#include "Window.h"
+
+
+
+int main(){
+
+    Window hWnd("F Engine", 680, 540);
+
 }
 

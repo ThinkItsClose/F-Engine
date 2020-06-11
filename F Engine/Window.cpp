@@ -1,15 +1,12 @@
 #include "Window.h"
 
-
 void FrameBufferSizeChangeCallback(GLFWwindow*, int, int);
 
 // Constructor, will be used to generate the GLFW window
 Window::Window(std::string windowName, unsigned int mWidth, unsigned int mHeight) {
 
-	glfwInit();
-
-	this->width = mWidth;
-	this->height = mHeight;
+	width = mWidth;
+	height = mHeight;
 
 	// Minimum version of OpenGL 4.0
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -17,7 +14,7 @@ Window::Window(std::string windowName, unsigned int mWidth, unsigned int mHeight
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
 	// Define the window
-	this->window = glfwCreateWindow(this->width, this->height, windowName.c_str(), NULL, NULL);
+	window = glfwCreateWindow(width, height, windowName.c_str(), NULL, NULL);
 
 	if (!window)
 		std::cout << "Window creation failed\n";
@@ -26,6 +23,16 @@ Window::Window(std::string windowName, unsigned int mWidth, unsigned int mHeight
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, FrameBufferSizeChangeCallback);
 
+	// Turn on v sync
+	glfwSwapInterval(1);
+
+}
+
+// Empty constructor so pointers can be used
+Window::Window(){}
+
+GLFWwindow* Window::GetWindow() {
+	return this->window;
 }
 
 void FrameBufferSizeChangeCallback(GLFWwindow* window, int width, int height) {

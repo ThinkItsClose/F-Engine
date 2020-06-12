@@ -21,8 +21,18 @@ void Object::AddShader(Shader* objShader) {
 	objectShader = objShader;
 }
 
-void Object::Draw() {
+void Object::Draw(Camera* camera) {
+	// Start the shader tied to the object
 	objectShader->Use();
+
+	// Send the camera matrix's to the shader
+	objectShader->SetUniform(&std::string("ViewMatrix"), &camera->GetViewMatrix());
+	objectShader->SetUniform(&std::string("ProjectionMatrix"), &camera->GetProjectionMatrix());
+	objectShader->SetUniform(&std::string("ModelMatrix"), &modelMatrix);
+
+	// Draw the vertices to the screen
 	objectMesh->Draw();
+
+	// Un bind the active shaders
 	glUseProgram(0);
 }

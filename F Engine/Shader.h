@@ -5,6 +5,8 @@
 #include <sstream>
 #include <string>
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class Shader {
 private:
@@ -19,5 +21,9 @@ public:
 	Shader(std::string vShaderPath, std::string fShaderPath);
 	bool DidErrorOccur();
 	void Use();
+
+	void SetUniform(std::string* name, glm::vec3* value);
+	void SetUniform(std::string* name, glm::mat4* value);
+	void SetUniform(std::string* name, int* value);
 };
 

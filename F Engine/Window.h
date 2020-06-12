@@ -17,5 +17,8 @@ public:
 	Window(std::string, unsigned int, unsigned int);
 	GLFWwindow* GetWindow();
 
+	unsigned int GetWidth();
+	unsigned int GetHeight();
+
 };
 

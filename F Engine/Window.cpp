@@ -35,6 +35,15 @@ GLFWwindow* Window::GetWindow() {
 	return this->window;
 }
 
+unsigned int Window::GetWidth() {
+	return width;
+}
+
+unsigned int Window::GetHeight() {
+	return height;
+}
+
 void FrameBufferSizeChangeCallback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
+

@@ -14,7 +14,7 @@ void FEngine::CreateEngineWindow(std::string windowName, unsigned int width, uns
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "Failed to load GLAD" << std::endl;
 		return;
-	}
+	} 
 }
 
 Window* FEngine::GetWindow() {
@@ -29,7 +29,13 @@ bool FEngine::IsActive() {
 	return isEngineActive;
 }
 
-void FEngine::DrawFrame() {
+void FEngine::HandleInput() {
+
+	
+
+}
+
+void FEngine::DrawFrame(Camera* camera) {
 	m_currFrameTime = glfwGetTime() - m_prevFrameTime;
 	m_prevFrameTime = glfwGetTime();
 
@@ -40,7 +46,7 @@ void FEngine::DrawFrame() {
 	std::vector<Object*>* objects = currentScene->GetObjects();
 
 	for (unsigned int objectIndex = 0; objectIndex < objects->size(); objectIndex++) {
-		objects->at(objectIndex)->Draw();
+		objects->at(objectIndex)->Draw(camera);
 	}
 
 	glfwSwapBuffers(engineWindow->GetWindow());

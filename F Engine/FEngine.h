@@ -6,10 +6,10 @@
 
 #include "Window.h"
 #include "Scene.h"
+#include "Camera.h"
 
 class FEngine {
 private:
-
 	Window* engineWindow = new Window();
 	Scene* currentScene = new Scene();
 
@@ -25,8 +25,8 @@ public:
 	void CreateEngineWindow(std::string, unsigned int, unsigned int);
 	Window* GetWindow();
 	bool IsActive();
-	void DrawFrame();
+	void DrawFrame(Camera* camera);
 	void ChangeScene(Scene*);
-
+	void HandleInput();
 };
 

@@ -113,3 +113,15 @@ bool Shader::DidErrorOccur() {
 void Shader::Use() {
 	glUseProgram(programID);
 }
+
+void Shader::SetUniform(std::string* name, glm::vec3* value) {
+	glUniform3fv(glGetUniformLocation(programID, name->c_str()), 1, glm::value_ptr(*value));
+}
+
+void Shader::SetUniform(std::string* name, glm::mat4* value) {
+	glUniformMatrix4fv(glGetUniformLocation(programID, name->c_str()), 1, GL_FALSE, &(*value)[0][0]);
+}
+
+void Shader::SetUniform(std::string* name, int* value) {
+	glUniform1i(glGetUniformLocation(programID, name->c_str()), *value);
+}

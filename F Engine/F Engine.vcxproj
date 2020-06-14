@@ -159,7 +159,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="FEngine.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="glad.c" />
+    <ClCompile Include="glad.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Primative.cpp" />

@@ -38,5 +38,6 @@ public:
 	void HandleInput();
 	bool IsKeyPressed(int keyCode);
 	bool GetMouseDelta(double& mouseDX, double& mouseDY);
+	double GetFrameTime();
 };
 

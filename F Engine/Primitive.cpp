@@ -185,7 +185,3 @@ void SpherePrimitive::GetMesh(std::vector<Vertex>& vertices, std::vector<unsigne
 		}
 	}
 }
-
-void ConePrimitive::GetMesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
-
-}

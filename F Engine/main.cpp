@@ -2,12 +2,13 @@
 
 #include <iostream>
 #include <string>
+#include <math.h>
 
 #include "FEngine.h"
 
 int main() {
     FEngine engine;
-    engine.CreateEngineWindow("F Engine", 800, 450);
+    engine.CreateEngineWindow("F Engine", 1000, 650);
 
     Object testObj;    
 
@@ -16,7 +17,7 @@ int main() {
 
     std::vector<Vertex> verticesTest;
     std::vector<unsigned int> indicesTest;
-    SpherePrimitive::GetMesh(verticesTest, indicesTest);
+    CubePrimitive::GetMesh(verticesTest, indicesTest);
     Mesh testMesh(verticesTest, indicesTest);
     testObj.AddMesh(&testMesh);
 
@@ -27,8 +28,13 @@ int main() {
     testScene.AddCamera(&sceneCam);
     engine.ChangeScene(&testScene);
 
-
-
+    
+    Object lightObj;
+    lightObj.AddShader(&testShaders);
+    lightObj.AddMesh(&testMesh);
+    testScene.AddObject(&lightObj);
+    lightObj.SetScale(glm::vec3(0.2f));
+    lightObj.SetPosition(glm::vec3(2, 4, 3));
 
     /////////////////// TEMP //////////////
     // Move camera

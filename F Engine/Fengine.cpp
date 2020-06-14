@@ -7,8 +7,14 @@ FEngine::FEngine() {
 }
 
 void FEngine::SetOpenGLOptions() {
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+
 	glEnable(GL_DEPTH_TEST);
+
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
@@ -126,3 +132,8 @@ void FEngine::DrawFrame(Camera* camera) {
 void FEngine::ChangeScene(Scene* scene) {
 	currentScene = scene;
 }
+
+double FEngine::GetFrameTime() {
+	return m_currFrameTime;
+}
+

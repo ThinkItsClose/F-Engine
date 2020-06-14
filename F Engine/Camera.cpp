@@ -46,3 +46,19 @@ void Camera::UpdateDirection() {
 	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	direction = glm::normalize(direction);
 }
+
+float Camera::GetCameraSpeed() {
+	return cameraSpeed;
+}
+
+glm::vec3 Camera::GetDirection() {
+	return direction;
+}
+
+glm::vec3 Camera::GetUpVector() {
+	return up;
+}
+
+float Camera::GetSensitivity() {
+	return sensitivity;
+}

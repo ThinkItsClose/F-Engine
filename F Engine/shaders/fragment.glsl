@@ -1,7 +1,11 @@
 #version 400 core
 
+in vec3 position;
+in vec3 normal;
+
 out vec4 FragColor;
 
 void main(){
-    FragColor = vec4(0.1, 0.5, 1, 1);
+    // Very basic dot product lighting for now
+    FragColor = vec4(vec3(clamp(dot(normal, normalize(vec3(2, 4, 3)-position)), 0, 1)), 1);
 }

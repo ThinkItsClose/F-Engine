@@ -15,7 +15,7 @@ private:
 	float yaw = -90.0f;
 	float pitch = 0.0f;
 
-	float sensitivity = 0.0f;
+	float sensitivity = 0.1f;
 	float cameraSpeed = 3.0f;
 
 	Window* window;
@@ -37,6 +37,14 @@ public:
 
 	glm::mat4 GetProjectionMatrix();
 	glm::mat4 GetViewMatrix();
+
+	float GetCameraSpeed();
+
+	glm::vec3 GetDirection();
+
+	glm::vec3 GetUpVector();
+
+	float GetSensitivity();
 
 };
 

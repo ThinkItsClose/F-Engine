@@ -162,7 +162,7 @@
     <ClCompile Include="glad.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Primative.cpp" />
+    <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -172,7 +172,7 @@
     <ClInclude Include="FEngine.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="Primative.h" />
+    <ClInclude Include="Primitive.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Vertex.h" />

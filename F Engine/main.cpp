@@ -9,16 +9,14 @@ int main() {
     FEngine engine;
     engine.CreateEngineWindow("F Engine", 800, 450);
 
-    Object testObj;
-   
-    
+    Object testObj;    
 
     Shader testShaders("shaders/vertex.glsl", "shaders/fragment.glsl");
     testObj.AddShader(&testShaders);
 
     std::vector<Vertex> verticesTest;
     std::vector<unsigned int> indicesTest;
-    CubePrimative::GetMesh(verticesTest, indicesTest);
+    SpherePrimitive::GetMesh(verticesTest, indicesTest);
     Mesh testMesh(verticesTest, indicesTest);
     testObj.AddMesh(&testMesh);
 

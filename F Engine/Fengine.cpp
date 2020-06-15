@@ -7,7 +7,7 @@ FEngine::FEngine() {
 }
 
 void FEngine::SetOpenGLOptions() {
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 
@@ -115,7 +115,7 @@ void FEngine::DrawFrame(Camera* camera) {
 	m_currFrameTime = glfwGetTime() - m_prevFrameTime;
 	m_prevFrameTime = glfwGetTime();
 
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glClearColor(0.4f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Draw each object in the scene

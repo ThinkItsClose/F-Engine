@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "Primitive.h"
+#include "Model.h"
 
 class FEngine {
 private:

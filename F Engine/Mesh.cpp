@@ -48,7 +48,6 @@ Mesh::Mesh(std::vector<Vertex> _vertices, std::vector<unsigned int> _indices) {
 }
 
 void Mesh::Draw() {
-
 	// Bind VAO
 	glBindVertexArray(this->VAO);
 

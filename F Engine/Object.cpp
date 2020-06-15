@@ -4,12 +4,15 @@ Object::Object(){
 }
 
 void Object::AddMesh(Mesh* objMesh) {
-
-	// Delete the old mesh
-	delete objectMesh;
-
 	// Add the new mesh
-	objectMesh = objMesh;
+	objectMeshes.push_back(objMesh);
+}
+
+
+void Object::SetMeshList(std::vector<Mesh>& newObjectMeshes) {
+	for (unsigned int index = 0; index < newObjectMeshes.size(); index++) {
+		objectMeshes.push_back(&newObjectMeshes.at(index));
+	}
 }
 
 void Object::AddShader(Shader* objShader) {
@@ -30,8 +33,10 @@ void Object::Draw(Camera* camera) {
 	objectShader->SetUniform(&std::string("ProjectionMatrix"), &camera->GetProjectionMatrix());
 	objectShader->SetUniform(&std::string("ModelMatrix"), &modelMatrix);
 
-	// Draw the vertices to the screen
-	objectMesh->Draw();
+	// Draw the vertices to the screen by itterating over all meshes
+	for (unsigned int index = 0; index < objectMeshes.size(); index++) {
+		objectMeshes.at(index)->Draw();
+	}
 
 	// Un bind the active shaders
 	glUseProgram(0);

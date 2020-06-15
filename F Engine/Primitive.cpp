@@ -18,7 +18,7 @@ std::vector<unsigned int> ArrayToVector(unsigned int* arr, unsigned int size) {
 }
 
 // Quad mesh definition
-void QuadPrimitive::GetMesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+Mesh QuadPrimitive::GetMesh() {
 
 	Vertex vertexArray[4 * sizeof(Vertex)] = {
 		glm::vec3(-0.5, 0.5, 0.5),  glm::vec2(0, 1), glm::vec3(0, 0, 1), glm::vec3(),
@@ -31,13 +31,13 @@ void QuadPrimitive::GetMesh(std::vector<Vertex>& vertices, std::vector<unsigned 
 		0, 2, 3
 	};
 
-	vertices = ArrayToVector(vertexArray, sizeof(vertexArray));
-	indices = ArrayToVector(indicesArray, sizeof(indicesArray));
-	return;
+	std::vector<Vertex> vertices = ArrayToVector(vertexArray, sizeof(vertexArray));
+	std::vector<unsigned int> indices = ArrayToVector(indicesArray, sizeof(indicesArray));
+	return Mesh(vertices, indices);
 }
 
 // Cube mesh definition
-void CubePrimitive::GetMesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+Mesh CubePrimitive::GetMesh() {
 	Vertex vertexArray[6 * 4 * sizeof(Vertex)] = {
 		// Front face
 		glm::vec3(-0.5, 0.5, 0.5),  glm::vec2(0, 1), glm::vec3(0, 0, 1),  glm::vec3(),
@@ -101,16 +101,19 @@ void CubePrimitive::GetMesh(std::vector<Vertex>& vertices, std::vector<unsigned 
 		20, 22, 23
 	};
 
-	vertices = ArrayToVector(vertexArray, sizeof(vertexArray));
-	indices = ArrayToVector(indicesArray, sizeof(indicesArray));
-	return;
+	std::vector<Vertex> vertices = ArrayToVector(vertexArray, sizeof(vertexArray));
+	std::vector<unsigned int> indices = ArrayToVector(indicesArray, sizeof(indicesArray));
+	return Mesh(vertices, indices);
 }
 
 // Sphere mesh definition
-void SpherePrimitive::GetMesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+Mesh SpherePrimitive::GetMesh() {
 
 	// Credit to http://www.songho.ca/opengl/gl_sphere.html
 	// Might refactor into my own code eventually
+
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
 
 	float radius = 0.5;
 	float sectorCount = 64;
@@ -184,4 +187,6 @@ void SpherePrimitive::GetMesh(std::vector<Vertex>& vertices, std::vector<unsigne
 			}
 		}
 	}
+
+	return Mesh(vertices, indices);
 }

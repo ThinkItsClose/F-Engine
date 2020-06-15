@@ -7,19 +7,21 @@
 #include "FEngine.h"
 
 int main() {
+
     FEngine engine;
     engine.CreateEngineWindow("F Engine", 1000, 650);
 
-    Object testObj;    
+      
 
     Shader testShaders("shaders/vertex.glsl", "shaders/fragment.glsl");
-    testObj.AddShader(&testShaders);
+    
 
-    std::vector<Vertex> verticesTest;
-    std::vector<unsigned int> indicesTest;
-    CubePrimitive::GetMesh(verticesTest, indicesTest);
-    Mesh testMesh(verticesTest, indicesTest);
-    testObj.AddMesh(&testMesh);
+    Object testObj;
+    testObj.AddShader(&testShaders);
+    //testObj.SetMeshList(Model::GetMeshes("C:\\Users\\Aidan\\Downloads\\nanosuit.obj"));
+    std::vector<Mesh> test = Model::GetMeshes("C:\\Users\\Aidan\\Downloads\\bread.obj");
+    testObj.SetMeshList(test);
+    testObj.SetScale(glm::vec3(1.2f));
 
     Camera sceneCam(engine.GetWindow());
 
@@ -29,9 +31,10 @@ int main() {
     engine.ChangeScene(&testScene);
 
     
+    Mesh lightMesh = CubePrimitive::GetMesh();
     Object lightObj;
     lightObj.AddShader(&testShaders);
-    lightObj.AddMesh(&testMesh);
+    lightObj.AddMesh(&lightMesh);
     testScene.AddObject(&lightObj);
     lightObj.SetScale(glm::vec3(0.2f));
     lightObj.SetPosition(glm::vec3(2, 4, 3));
@@ -42,6 +45,9 @@ int main() {
     ///////////////////////////////////////
 
     while (engine.IsActive()) {
+
+        testObj.SetRotation(glm::vec3(glfwGetTime()*30, 0, 0));
+
         engine.HandleInput();
 
         // Draw objects

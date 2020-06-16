@@ -7,7 +7,7 @@
 
 class Mesh {
 private:
-	std::vector<Vertex> vertices;
+	//std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 
 	unsigned int VAO;
@@ -16,7 +16,7 @@ private:
 
 public:
 	Mesh();
-	Mesh(std::vector<Vertex> _vertices, std::vector<unsigned int> _indices);
+	Mesh(std::vector<Vertex>& _vertices, std::vector<unsigned int>& _indices);
 	void Draw();
 };
 

@@ -5,10 +5,10 @@
 
 Mesh::Mesh(){}
 
-Mesh::Mesh(std::vector<Vertex> _vertices, std::vector<unsigned int> _indices) {
+Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& _indices) {
 
 	// Define the vertices and indices array
-	vertices = _vertices;
+	//vertices = _vertices;
 	indices  = _indices;
 
 	// Define the buffer array objects

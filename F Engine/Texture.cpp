@@ -10,9 +10,9 @@ Texture::Texture(){}
 Texture::Texture(std::string path, int textureType) {
 	
 	type = textureType;
-	int width;
-	int height;
-	int channels;
+	int width = 0;
+	int height = 0;
+	int channels = 0;
 
 	// Check if file exists
 	std::ifstream fileCheck(path);
@@ -28,6 +28,11 @@ Texture::Texture(std::string path, int textureType) {
 	glGenTextures(1, &id);
 	glBindTexture(type, id);
 
+	glTexParameteri(type, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(type, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(type, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
 	// This option ensures that the image data is not interpreted incorrectly by glTexImage2D when using non square textures
 	// Read more here: https://stackoverflow.com/questions/58925604/glteximage2d-crashing-program
 	// glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -36,25 +41,39 @@ Texture::Texture(std::string path, int textureType) {
 		// If image is RGBA or RGB load differently
 		int format = 0;
 		if (channels == 3) {
-			format = GL_RGB;
+			format = GL_COMPRESSED_RGB_ARB;
 		}
 		else if (channels == 4) {
-			format = GL_RGBA;
+			format = GL_COMPRESSED_RGBA;
 		}
 		else if (channels == 1) {
-			format = GL_ALPHA;
+			format = GL_COMPRESSED_ALPHA_ARB;
 		}
 
 		if (format == 0) {
 			std::cout << "Texture loading failed for: " << path << " (An invalid amount of channels was found: " << channels << ")" << std::endl;
 		} else {
-			glTexImage2D(type, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-			glGenerateMipmap(this->type);
+			// Thank the lord above for 
+			// https://www.oldunreal.com/editing/s3tc/ARB_texture_compression.pdf
+			// Otherwise 5000 x 5000 jpgs would still take up 200 MB
 
-			glTexParameteri(type, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(type, GL_TEXTURE_WRAP_T, GL_REPEAT);
-			glTexParameteri(type, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-			glTexParameteri(type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexImage2D(type, 0, GL_COMPRESSED_RGB_ARB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+			glGenerateMipmap(type);
+
+			// If image is compressed we can save it to the disk so it can be streamed in faster and pre converted
+			// This is the optimal solution for production projects as it saves on disk space, memory and cpu time
+			// When not in production however, it may be worth it to convert the textures on the fly as having copies of large textures
+			// may take up alot of hard drive space over time
+			// Note: there may be an issue with cross platform applications when using this method
+			int compressed;
+			glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_COMPRESSED_ARB, &compressed);
+
+			if (compressed) {
+				// todo: Could save to file here
+				// refer to url for theory
+			} else {
+				std::cout << "Texture compression failed for: " << path << std::endl;
+			}
 		}
 	}
 	else {
@@ -63,7 +82,6 @@ Texture::Texture(std::string path, int textureType) {
 
 	// Unbind all textures
 	glActiveTexture(0);
-	glBindTexture(type, 0);
 	stbi_image_free(image);
 }
 

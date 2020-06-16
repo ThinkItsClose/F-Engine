@@ -18,10 +18,15 @@ int main() {
 
     Object testObj;
     testObj.AddShader(&testShaders);
-    //testObj.SetMeshList(Model::GetMeshes("C:\\Users\\Aidan\\Downloads\\nanosuit.obj"));
     std::vector<Mesh> test = Model::GetMeshes("C:\\Users\\Aidan\\Downloads\\bread.obj");
     testObj.SetMeshList(test);
+    //Mesh testObjCubeMesh = CubePrimitive::GetMesh();
+    //testObj.AddMesh(&testObjCubeMesh);
     testObj.SetScale(glm::vec3(1.2f));
+    Texture albedoMap("C:\\Users\\Aidan\\Downloads\\bread\\albedo.jpg", GL_TEXTURE_2D);
+    Material testObjMaterial;
+    testObjMaterial.AddAlbedoMap(&albedoMap);
+    testObj.AddMaterial(&testObjMaterial);
 
     Camera sceneCam(engine.GetWindow());
 
@@ -33,6 +38,10 @@ int main() {
     
     Mesh lightMesh = CubePrimitive::GetMesh();
     Object lightObj;
+    Texture lightObjAlbedoMap("C:\\Users\\Aidan\\Documents\\C++\\OpenGL\\textures\\bricks\\albedo.jpg", GL_TEXTURE_2D);
+    Material lightObjMaterial;
+    lightObjMaterial.AddAlbedoMap(&lightObjAlbedoMap);
+    lightObj.AddMaterial(&lightObjMaterial);
     lightObj.AddShader(&testShaders);
     lightObj.AddMesh(&lightMesh);
     testScene.AddObject(&lightObj);
@@ -46,7 +55,7 @@ int main() {
 
     while (engine.IsActive()) {
 
-        testObj.SetRotation(glm::vec3(glfwGetTime()*30, 0, 0));
+        testObj.SetRotation(glm::vec3(0, glfwGetTime() * 30, 0));
 
         engine.HandleInput();
 

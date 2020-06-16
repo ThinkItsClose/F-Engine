@@ -19,7 +19,7 @@ Mesh::Mesh(std::vector<Vertex> _vertices, std::vector<unsigned int> _indices) {
 	// VBO
 	glGenBuffers(1, &this->VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW); // Static draw could be replaced with dynamic for to optiomise it
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW); // Static draw could be replaced with dynamic for to optimise it
 
 	// EBO
 	glGenBuffers(1, &this->EBO);

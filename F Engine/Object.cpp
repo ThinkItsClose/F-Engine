@@ -24,6 +24,15 @@ void Object::AddShader(Shader* objShader) {
 	objectShader = objShader;
 }
 
+void Object::AddMaterial(Material* objMaterial) {
+
+	// Delete the old material
+	delete objectMaterial;
+
+	// Add the new material
+	objectMaterial = objMaterial;
+}
+
 void Object::Draw(Camera* camera) {
 	// Start the shader tied to the object
 	objectShader->Use();
@@ -32,6 +41,9 @@ void Object::Draw(Camera* camera) {
 	objectShader->SetUniform(&std::string("ViewMatrix"), &camera->GetViewMatrix());
 	objectShader->SetUniform(&std::string("ProjectionMatrix"), &camera->GetProjectionMatrix());
 	objectShader->SetUniform(&std::string("ModelMatrix"), &modelMatrix);
+
+	// Send the material information to the shader
+	objectMaterial->SendToShader(objectShader);
 
 	// Draw the vertices to the screen by itterating over all meshes
 	for (unsigned int index = 0; index < objectMeshes.size(); index++) {

@@ -11,9 +11,11 @@ uniform mat4 ModelMatrix;
 
 out vec3 position;
 out vec3 normal;
+out vec2 textureCoordinate;
 
 void main(){
     gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(vs_position, 1.0);
     normal = mat3(transpose(inverse(ModelMatrix))) * vs_normal;
     position = vec3(ModelMatrix * vec4(vs_position, 1.0f));
+    textureCoordinate = vs_textureCoordinate;
 }

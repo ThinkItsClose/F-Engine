@@ -185,8 +185,10 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\fragment.glsl" />
-    <None Include="shaders\vertex.glsl" />
+    <None Include="shaders\gBufferFragment.glsl" />
+    <None Include="shaders\gBufferVertex.glsl" />
+    <None Include="shaders\lightingPassFragment.glsl" />
+    <None Include="shaders\lightingPassVertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

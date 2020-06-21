@@ -8,48 +8,47 @@
 
 int main() {
 
-    FEngine engine;
-    engine.CreateEngineWindow("F Engine", 1000, 650);      
+    FEngine engine("F Engine", 1000, 650);
 
-    Shader testShaders("shaders/vertex.glsl", "shaders/fragment.glsl");
+    Shader testShaders("shaders/gBufferVertex.glsl", "shaders/gBufferFragment.glsl");
     Scene testScene;
 
     Object testObj;
     testObj.AddShader(&testShaders);
-    //std::vector<Mesh> test = Model::GetMeshes("C:\\Users\\Aidan\\Downloads\\bread.obj");
+    //std::vector<Mesh> test = Model::GetMeshes("C:\\Users\\Aidan\\Downloads\\sponza.obj");
     //testObj.SetMeshList(test);
-    testScene.AddObject(&testObj);
-    Mesh testObjCubeMesh = CubePrimitive::GetMesh();
+    Mesh testObjCubeMesh = SpherePrimitive::GetMesh();
     testObj.AddMesh(&testObjCubeMesh);
-    Texture albedoMap("C:\\Users\\Aidan\\Downloads\\bread\\albedo - Copy.jpg", GL_TEXTURE_2D);
+    //Texture albedoMap("C:\\Users\\Aidan\\Downloads\\sponza_maps\\KAMEN.jpg", GL_TEXTURE_2D);
+    Texture albedoMap("C:\\Users\\Aidan\\Documents\\C++\\OpenGL\\textures\\marble\\albedo.jpg", GL_TEXTURE_2D);
     Material testObjMaterial;
     testObjMaterial.AddAlbedoMap(&albedoMap);
     testObj.AddMaterial(&testObjMaterial);
+    testScene.AddObject(&testObj);
 
     Camera sceneCam(engine.GetWindow());
     testScene.AddCamera(&sceneCam);
     engine.ChangeScene(&testScene);
 
+    /*
     Mesh lightMesh = CubePrimitive::GetMesh();
     Object lightObj;
-    //Texture lightObjAlbedoMap("C:\\Users\\Aidan\\Documents\\C++\\OpenGL\\textures\\bricks\\albedo.jpg", GL_TEXTURE_2D);
-    //Material lightObjMaterial;
-    //lightObjMaterial.AddAlbedoMap(&lightObjAlbedoMap);
-    //lightObj.AddMaterial(&lightObjMaterial);
+    Texture lightObjAlbedoMap("C:\\Users\\Aidan\\Documents\\C++\\OpenGL\\textures\\bricks\\albedo.jpg", GL_TEXTURE_2D);
+    Material lightObjMaterial;
+    lightObjMaterial.AddAlbedoMap(&lightObjAlbedoMap);
+    lightObj.AddMaterial(&lightObjMaterial);
     lightObj.AddShader(&testShaders);
     lightObj.AddMesh(&lightMesh);
-    testScene.AddObject(&lightObj);
     lightObj.SetScale(glm::vec3(0.2f));
     lightObj.SetPosition(glm::vec3(2, 4, 3));
+    testScene.AddObject(&lightObj);
+    */
 
     /////////////////// TEMP //////////////
     // Move camera
     sceneCam.SetPosition(glm::vec3(0, 0, 2));
     ///////////////////////////////////////
-
     while (engine.IsActive()) {
-        testObj.SetRotation(glm::vec3(0, glfwGetTime() * 30, 0));
-
         engine.HandleInput();
 
         // Draw objects

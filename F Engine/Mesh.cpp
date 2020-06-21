@@ -9,7 +9,7 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& _indices) {
 
 	// Define the vertices and indices array
 	//vertices = _vertices;
-	indices  = _indices;
+	indices_sz = _indices.size();
 
 	// Define the buffer array objects
 	// VAO
@@ -24,7 +24,7 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& _indices) {
 	// EBO
 	glGenBuffers(1, &this->EBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size() * sizeof(unsigned int), _indices.data(), GL_STATIC_DRAW);
 
 	// Set and enable veretxattrib pointers
 	// Position
@@ -52,5 +52,5 @@ void Mesh::Draw() {
 	glBindVertexArray(this->VAO);
 
 	// Draw
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, indices_sz, GL_UNSIGNED_INT, 0);
 }

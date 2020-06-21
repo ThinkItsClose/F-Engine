@@ -106,6 +106,10 @@ bool Shader::CompileShader(unsigned int shader, std::string shaderCode) {
 	return true;
 }
 
+unsigned int Shader::GetProgramID() {
+	return programID;
+}
+
 bool Shader::DidErrorOccur() {
 	return didErrorOccur;
 }

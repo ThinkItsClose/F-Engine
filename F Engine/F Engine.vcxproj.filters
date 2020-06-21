@@ -94,7 +94,17 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\fragment.glsl" />
-    <None Include="shaders\vertex.glsl" />
+    <None Include="shaders\gBufferFragment.glsl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="shaders\gBufferVertex.glsl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="shaders\lightingPassFragment.glsl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="shaders\lightingPassVertex.glsl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

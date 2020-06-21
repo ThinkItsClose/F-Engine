@@ -15,6 +15,9 @@ class FEngine {
 private:
 	Window* engineWindow = new Window();
 	Scene* currentScene = new Scene();
+	Shader* lightingShader = new Shader();
+	Object screenObject;
+	Mesh screenObjectMesh;
 
 	bool isEngineActive = true;
 
@@ -28,11 +31,14 @@ private:
 
 	bool wireframeEnabled = false;
 
+	unsigned int gBuffer, gPosition, gNormal, gAlbedoSpec, attachments[3], rboDepth;
+
 public:
-	FEngine();
+	FEngine(std::string, unsigned int, unsigned int);
 	void SetOpenGLOptions();
 	void CreateEngineWindow(std::string, unsigned int, unsigned int);
 	Window* GetWindow();
+	void SetupFramebuffers();
 	bool IsActive();
 	void DrawFrame(Camera* camera);
 	void ChangeScene(Scene*);

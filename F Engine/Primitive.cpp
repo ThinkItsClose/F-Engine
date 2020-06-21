@@ -137,19 +137,19 @@ Mesh SpherePrimitive::GetMesh() {
 			// vertex position (x, y, z)
 			x = xy * cosf(sectorAngle);             // r * cos(u) * cos(v)
 			y = xy * sinf(sectorAngle);             // r * cos(u) * sin(v)
-			glm::vec3 position = glm::vec3(x, y, z);
+			glm::vec3 position = glm::vec3(x, z, y); // x, z, y because the sphere is calculated using the z axis as the y axis, might reformat to clear up later on
 
 			// vertex tex coord (s, t) range between [0, 1]
 			s = (float)j / sectorCount;
 			t = (float)i / stackCount;
-			glm::vec2 textureCoordinate = glm::vec2(t, s);
+			glm::vec2 textureCoordinate = glm::vec2(s, t);
 
 			// normalized vertex normal (nx, ny, nz)
 			nx = x * lengthInv;
 			ny = y * lengthInv;
 			nz = z * lengthInv;
 
-			glm::vec3 normal = glm::vec3(nx, ny, nz);
+			glm::vec3 normal = glm::vec3(nx, nz, ny);
 			Vertex vertex;
 			vertex.position = position;
 			vertex.textureCoordinate = textureCoordinate;

@@ -30,7 +30,7 @@ Texture::Texture(std::string path, int textureType) {
 
 	glTexParameteri(type, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(type, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(type, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	//glTexParameteri(type, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	// This option ensures that the image data is not interpreted incorrectly by glTexImage2D when using non square textures
@@ -39,25 +39,29 @@ Texture::Texture(std::string path, int textureType) {
 
 	if (image) {
 		// If image is RGBA or RGB load differently
-		int format = 0;
+		int internalFormat = 0;
+		int textureFormat = 0;
 		if (channels == 3) {
-			format = GL_COMPRESSED_RGB_ARB;
+			textureFormat = GL_RGB;
+			internalFormat = GL_COMPRESSED_RGB_ARB;
 		}
 		else if (channels == 4) {
-			format = GL_COMPRESSED_RGBA;
+			textureFormat = GL_RGBA;
+			internalFormat = GL_COMPRESSED_RGBA_ARB;
 		}
 		else if (channels == 1) {
-			format = GL_COMPRESSED_ALPHA_ARB;
+			textureFormat = GL_ALPHA;
+			internalFormat = GL_COMPRESSED_ALPHA_ARB;
 		}
 
-		if (format == 0) {
+		if (textureFormat == 0) {
 			std::cout << "Texture loading failed for: " << path << " (An invalid amount of channels was found: " << channels << ")" << std::endl;
 		} else {
 			// Thank the lord above for 
 			// https://www.oldunreal.com/editing/s3tc/ARB_texture_compression.pdf
-			// Otherwise 5000 x 5000 jpgs would still take up 200 MB
 
-			glTexImage2D(type, 0, GL_COMPRESSED_RGB_ARB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+			std::cout << "" << std::endl;
+			glTexImage2D(type, 0, internalFormat, width, height, 0, textureFormat, GL_UNSIGNED_BYTE, image);
 			glGenerateMipmap(type);
 
 			// If image is compressed we can save it to the disk so it can be streamed in faster and pre converted
@@ -69,7 +73,7 @@ Texture::Texture(std::string path, int textureType) {
 			glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_COMPRESSED_ARB, &compressed);
 
 			if (compressed) {
-				// todo: Could save to file here
+				// todo: Could save to file here to improve texture streaming/storing in the future
 				// refer to url for theory
 			} else {
 				std::cout << "Texture compression failed for: " << path << std::endl;
@@ -81,7 +85,6 @@ Texture::Texture(std::string path, int textureType) {
 	}
 
 	// Unbind all textures
-	glActiveTexture(0);
 	stbi_image_free(image);
 }
 

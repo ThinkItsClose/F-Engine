@@ -8,6 +8,11 @@ void Material::SendToShader(Shader* shader) {
 		glBindTexture(albedoMap->GetType(), albedoMap->GetID());
 		shader->SetUniform(std::string("albedoMap"), 0);
 	}
+	if (normalMap->GetID()) {
+		glActiveTexture(GL_TEXTURE0 + 1);
+		glBindTexture(normalMap->GetType(), normalMap->GetID());
+		shader->SetUniform(std::string("normalMap"), 1);
+	}
 }
 
 void Material::AddAlbedoMap(Texture* newAlbedoMap) {
@@ -16,4 +21,12 @@ void Material::AddAlbedoMap(Texture* newAlbedoMap) {
 
 Texture* Material::GetAlbedoMap() {
 	return albedoMap;
+}
+
+void Material::AddNormalMap(Texture* newNormalMap) {
+	normalMap = newNormalMap;
+}
+
+Texture* Material::GetNormalMap() {
+	return normalMap;
 }

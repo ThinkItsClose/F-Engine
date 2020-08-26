@@ -16,6 +16,7 @@ void main(){
     vec4 albedo = texture(gAlbedo, textureCoordinate);
 
     float diffuse = clamp(dot(normal, normalize(vec3(2, 4, 2)-position)), 0, 1);
-    FragColor = (albedo * vec4(vec3(diffuse), 1) * 0.9f) + (albedo * 0.1f);
+    //FragColor = (albedo * vec4(vec3(diffuse), 1) * 0.9f) + (albedo * 0.1f);
+    FragColor = vec4(abs(normal), 1);
     //FragColor = vec4(texture(gPosition, textureCoordinate));
 }

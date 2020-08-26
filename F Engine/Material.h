@@ -6,6 +6,7 @@
 class Material {
 private:
 	Texture* albedoMap = new Texture;
+	Texture* normalMap = new Texture;
 
 public:
 	Material();
@@ -13,5 +14,8 @@ public:
 
 	void AddAlbedoMap(Texture* newAlbedoMap);
 	Texture* GetAlbedoMap();
+
+	void AddNormalMap(Texture* newNormalMap);
+	Texture* GetNormalMap();
 };
 

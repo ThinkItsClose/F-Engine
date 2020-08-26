@@ -4,6 +4,7 @@ layout (location = 0) in vec3 vs_position;
 layout (location = 1) in vec2 vs_textureCoordinate;
 
 out vec2 textureCoordinate;
+out mat3 TBN;
 
 void main(){
     textureCoordinate = vs_textureCoordinate;

@@ -3,8 +3,12 @@
 in vec3 position;
 in vec3 normal;
 in vec2 textureCoordinate;
+in mat3 TBN;
+
+in vec3 T;
 
 uniform sampler2D albedoMap;
+uniform sampler2D normalMap;
 
 layout (location = 0) out vec4 gPosition;
 layout (location = 1) out vec4 gNormal;
@@ -21,7 +25,8 @@ void main(){
     // store the fragment position vector in the first gbuffer texture
     gPosition = vec4(position, 1);
     // also store the per-fragment normals into the gbuffer
-    gNormal = vec4(normalize(normal), 1);
+    vec3 normalMap = texture(normalMap, textureCoordinate).rgb;
+    gNormal = vec4(T,1);//vec4(normalize(TBN * ((normalMap*2)-1)), 1); //vec4(normalize(normal), 1);
     // and the diffuse per-fragment color
     gAlbedoSpec = texture(albedoMap, textureCoordinate);
 }

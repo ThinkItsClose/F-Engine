@@ -31,6 +31,42 @@ Mesh QuadPrimitive::GetMesh() {
 		0, 2, 3
 	};
 
+	// Calculate the tangents
+	// Temporary placement for now
+
+	int faces = 1;
+	int vertiesPerFace = 4;
+	int trianglesPerFace = 2;
+	// Calculate the tangents
+	for (int face = 0; face < faces; face++) {
+		int index = face * vertiesPerFace;
+
+		glm::vec3 pos1 = vertexArray[index + 0].position;
+		glm::vec3 pos2 = vertexArray[index + 1].position;
+		glm::vec3 pos3 = vertexArray[index + 2].position;
+
+		glm::vec2 uv1 = vertexArray[index + 0].textureCoordinate;
+		glm::vec2 uv2 = vertexArray[index + 1].textureCoordinate;
+		glm::vec2 uv3 = vertexArray[index + 2].textureCoordinate;
+
+		glm::vec3 edge1 = pos2 - pos1;
+		glm::vec3 edge2 = pos3 - pos1;
+		glm::vec2 deltaUV1 = uv2 - uv1;
+		glm::vec2 deltaUV2 = uv3 - uv1;
+
+		float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
+
+		glm::vec3 tangent1;
+		tangent1.x = f * (deltaUV2.y * edge1.x - deltaUV1.y * edge2.x);
+		tangent1.y = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
+		tangent1.z = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
+		tangent1 = glm::normalize(tangent1);
+
+		for (int vertex = 0; vertex < vertiesPerFace; vertex++) {
+			vertexArray[index + vertex].tangent = tangent1;
+		}
+	}
+
 	std::vector<Vertex> vertices = ArrayToVector(vertexArray, sizeof(vertexArray));
 	std::vector<unsigned int> indices = ArrayToVector(indicesArray, sizeof(indicesArray));
 	return Mesh(vertices, indices);

@@ -17,12 +17,14 @@ int main() {
     testObj.AddShader(&testShaders);
     //std::vector<Mesh> test = Model::GetMeshes("C:\\Users\\Aidan\\Downloads\\sponza.obj");
     //testObj.SetMeshList(test);
-    Mesh testObjCubeMesh = SpherePrimitive::GetMesh();
+    Mesh testObjCubeMesh = QuadPrimitive::GetMesh();
     testObj.AddMesh(&testObjCubeMesh);
     //Texture albedoMap("C:\\Users\\Aidan\\Downloads\\sponza_maps\\KAMEN.jpg", GL_TEXTURE_2D);
-    Texture albedoMap("C:\\Users\\Aidan\\Documents\\C++\\OpenGL\\textures\\marble\\albedo.jpg", GL_TEXTURE_2D);
+    Texture albedoMap("C:\\Users\\Aidan\\Documents\\C++\\OpenGL\\textures\\bricks\\albedo.jpg", GL_TEXTURE_2D);
+    Texture normalMap("C:\\Users\\Aidan\\Documents\\C++\\OpenGL\\textures\\bricks\\normal.jpg", GL_TEXTURE_2D);
     Material testObjMaterial;
     testObjMaterial.AddAlbedoMap(&albedoMap);
+    testObjMaterial.AddNormalMap(&normalMap);
     testObj.AddMaterial(&testObjMaterial);
     testScene.AddObject(&testObj);
 
@@ -30,7 +32,6 @@ int main() {
     testScene.AddCamera(&sceneCam);
     engine.ChangeScene(&testScene);
 
-    /*
     Mesh lightMesh = CubePrimitive::GetMesh();
     Object lightObj;
     Texture lightObjAlbedoMap("C:\\Users\\Aidan\\Documents\\C++\\OpenGL\\textures\\bricks\\albedo.jpg", GL_TEXTURE_2D);
@@ -42,7 +43,7 @@ int main() {
     lightObj.SetScale(glm::vec3(0.2f));
     lightObj.SetPosition(glm::vec3(2, 4, 3));
     testScene.AddObject(&lightObj);
-    */
+    
 
     /////////////////// TEMP //////////////
     // Move camera
